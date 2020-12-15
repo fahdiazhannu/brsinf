@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controllers\Admin;
+namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use App\Models\UsersModel;
@@ -40,11 +40,11 @@ class Login extends BaseController
                 ];
                 $session->set($sess_data);
                 if($kategori=='dosen'){
-                    return redirect()->to(base_url('admin/dosen'));
+                    return redirect()->to(base_url('dosen'));
                 }else if($kategori=='mahasiswa'){
-                    return redirect()->to(base_url('admin/dashboard'));
+                    return redirect()->to(base_url('dashboard'));
                 }else{
-                    return redirect()->to(base_url('admin/dashboard'));
+                    return redirect()->to(base_url('dashboard'));
                 }
             } else {
                 $session->setFlashdata('msg', 'Password tidak ada');

@@ -5,20 +5,20 @@
 
     <ul class="list-unstyled components">
         <li>
-            <a href="<?= base_url('admin/dashboard'); ?>">Home</a>
+            <a href="<?= base_url('dashboard'); ?>">Home</a>
         </li>
 
         <li>
-            <a href="<?= base_url('admin/brs'); ?>">Ambil BRS</a>
+            <a href="<?= base_url('brs'); ?>">Ambil BRS</a>
         </li>
         <li>
-            <a href="<?= base_url('admin/brs/list'); ?>">List BRS</a>
+            <a href="<?= base_url('brs/list'); ?>">List BRS</a>
         </li>
         <li>
             <a href="<?= base_url('calc/index'); ?>">Kalkulator IPK</a>
         </li>
         <li>
-            <a href="<?= base_url('admin/matakuliah/index'); ?>">Info Mata Kuliah</a>
+            <a href="<?= base_url('matakuliah/index'); ?>">Info Mata Kuliah</a>
         </li>
         <li>
             <a href="<?= base_url(); ?>">Logout</a>

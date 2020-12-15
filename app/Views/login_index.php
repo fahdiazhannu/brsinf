@@ -25,7 +25,7 @@
                         <?php if (session()->getFlashdata('msg')) : ?>
                             <div class="alert alert-danger"><?= session()->getFlashdata('msg') ?></div>
                         <?php endif ?>
-                        <form method="POST" action="<?= base_url('admin/login/auth'); ?>">
+                        <form method="POST" action="<?= base_url('login/auth'); ?>">
                             <div class="form-group">
                                 <label for="nmr_induk">Nomor Induk</label>
                                 <input type="nmr_induk" name="nmr_induk" id="nmr_induk" class="form-control" placeholder="Masukkan Nomor Induk">

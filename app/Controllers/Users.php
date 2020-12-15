@@ -1,5 +1,6 @@
-<?php namespace App\Controllers\Admin;
+<?php namespace App\Controllers;
 use App\Controllers\BaseController;
+use App\Models\BrsModel;
 use App\Models\UsersModel;
 
 class Users extends BaseController{
@@ -70,6 +71,8 @@ class Users extends BaseController{
         }
     public function delete($id = null){
             $model = new UsersModel();
+            $model = new BrsModel();
+    
             $data['user'] = $model->where('id',$id)->delete();
 
             return redirect()->to(base_url('admin/users'));

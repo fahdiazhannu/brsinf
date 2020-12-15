@@ -1,4 +1,4 @@
-<?php namespace App\Controllers\Admin;
+<?php namespace App\Controllers;
 use App\Controllers\BaseController;
 use App\Models\UsersModel;
 use App\Models\MatkulModel;
@@ -14,11 +14,10 @@ class Brs extends BaseController{
         echo view("template/v_css");
         
         $model = new MatkulModel();
-
         $data['matakuliah'] = $model->orderBy('kode_mk', 'DESC')->findAll();
-
         return view('ambil_brs', $data);
     }
+
     public function store()
     {
         $model = new BrsModel();
@@ -72,14 +71,25 @@ class Brs extends BaseController{
 
         
         $nmrmhs = session()->get('nmr_induk');
-        $data = $model->where('nmr_induk', $nmrmhs)->first();
+        $data = $model->join('matakuliah', 'matakuliah.id = brs.id', 'left');
         if($data){
             $kodemk = $data['kode_mk'];
             $listkode['matakuliah'] = explode(" , ",$kodemk);
-
+            $data2 = $model->join('matakuliah', 'matakuliah.id = brs.id', 'left');
             return view('list_brs',$listkode);
             
         }
 
     }
-}
+
+ public function delete($id = null){
+        $session = session();
+            $nmrmhs = session()->get('nmr_induk');
+            $model1 = new BrsModel();
+            $model2 = new MatkulModel();
+
+            $data['kode_mk'] = $model1->where('id',$id)->delete();
+
+            return redirect()->to(base_url('brs/list'));
+        }
+    }

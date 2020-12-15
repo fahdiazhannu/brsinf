@@ -9,6 +9,7 @@
                         <thead>
                             <tr>
                                 <th>Kode Matakuliah</th>
+                                <th>Nama Matakuliah</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -16,6 +17,7 @@
                                 <?php foreach ($matakuliah as $mk) : ?>
                                     <tr>
                                         <td><?= $mk; ?></td>
+                                        <td><?php $data = $model->where('kode_mk', $mk)->first(); echo $data['nm_mk'] ?></td>
                                     </tr>
                                 <?php endforeach; ?>
                             <?php endif; ?>

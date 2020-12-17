@@ -21,7 +21,7 @@
             <a href="<?= base_url('matakuliah/index'); ?>">Info Mata Kuliah</a>
         </li>
         <li>
-            <a href="<?= base_url(); ?>">Logout</a>
+            <a href="<?= base_url('login/logout'); ?>">Logout</a>
         </li>
     </ul>
 

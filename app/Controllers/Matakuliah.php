@@ -15,14 +15,13 @@ class Matakuliah extends BaseController{
         echo view("template/v_css");
         //echo "Ini adalah Controller HOME";
         $model = new MatkulModel();
-
-        //load seluruh data
-        $data['matakuliah'] = $model->orderBy('id', 'DESC')->findAll();
-
-
-        
-
-        return view('info_matkul', $data);
+        if (session()->get('logged_in')) {
+            $data['matakuliah'] = $model->orderBy('id', 'DESC')->findAll();
+            return view("info_matkul", $data);
+        } elseif (!session()->get('logged_in')) {
+            return redirect()->to(base_url());
+            # code...
+        }
     }
     public function create() {
         echo view("template/v_header");

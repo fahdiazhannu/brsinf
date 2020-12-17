@@ -7,7 +7,7 @@
               <?php if (session()->getFlashdata('msgpwd')) : ?>
                         <div class="alert alert-success"><?= session()->getFlashdata('msgpwd') ?></div>
                      <?php endif ?>
-                <form action="<?= base_url('admin/users/update'); ?>" method="POST">
+                <form action="<?= base_url('users/update'); ?>" method="POST">
                 <input type="hidden" name="nmr_induk" value="<?=$user['nmr_induk']?>">    
                 <div class="form-group">
                         <label for="name">Nama</label>

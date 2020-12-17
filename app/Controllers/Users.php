@@ -13,11 +13,15 @@ class Users extends BaseController{
         echo view("template/v_css");
         //echo "Ini adalah Controller HOME";
         $model = new UsersModel();
-
+        if (session()->get('logged_in')) {
+            $data['user'] = $model->orderBy('nmr_induk', 'DESC')->findAll();
+            return view('users_view_all', $data);
+        } elseif (!session()->get('logged_in')) {
+            (session()->setFlashdata('msg', 'Anda tidak mempunyai akses'));
+            return redirect()->to(base_url());
+            # code...
+        }
         //load seluruh data
-        $data['user'] = $model->orderBy('nmr_induk', 'DESC')->findAll();
-
-        return view('users_view_all', $data);
     }
     public function create() {
         echo view("template/v_header");
@@ -46,16 +50,40 @@ class Users extends BaseController{
     }
     public function edit ($id = null){
 
-        $session = session();
+      
         echo view("template/v_header");
 		echo view("template/v_sidebar");
 		echo view("template/v_topbar");
         echo view("template/v_js");
         echo view("template/v_css");
         $model = new UsersModel();
-        $data['user'] = $model->where('id', $id)->first();
-     
-        return view('users_edit_user', $data);
+        if (session()->get('logged_in')) {
+            $data['user'] = $model->orderBy('nmr_induk', 'DESC')->findAll();
+            return view('user_edit', $data);
+        } elseif (!session()->get('logged_in')) {
+            (session()->setFlashdata('msg', 'Anda tidak mempunyai akses'));
+            return redirect()->to(base_url());
+            # code...
+        }
+    }
+    public function editdosen($id = null)
+    {
+
+        $session = session();
+        echo view("template/v_header");
+        echo view("template/v_sidebardosen");
+        echo view("template/v_topbar");
+        echo view("template/v_js");
+        echo view("template/v_css");
+        $model = new UsersModel();
+        if (session()->get('logged_in')) {
+            $data['user'] = $model->where('id', $id)->first();
+            return view('dosen_Edit', $data);
+        } elseif (!session()->get('logged_in')) {
+            (session()->setFlashdata('msg', 'Anda tidak mempunyai akses'));
+            return redirect()->to(base_url());
+            # code...
+        }
     }
     public function update(){
             
@@ -75,7 +103,7 @@ class Users extends BaseController{
     
             $data['user'] = $model->where('id',$id)->delete();
 
-            return redirect()->to(base_url('admin/users'));
+            return redirect()->to(base_url('users'));
         }
     }
 

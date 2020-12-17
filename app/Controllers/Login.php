@@ -43,8 +43,10 @@ class Login extends BaseController
                     return redirect()->to(base_url('dosen'));
                 }else if($kategori=='mahasiswa'){
                     return redirect()->to(base_url('dashboard'));
-                }else{
-                    return redirect()->to(base_url('dashboard'));
+                }else if ($kategori=='admin'){
+                    return redirect()->to(base_url('login'));
+                }else if ($session!=TRUE){
+                return redirect()->to(base_url());
                 }
             } else {
                 $session->setFlashdata('msg', 'Password tidak ada');
@@ -54,11 +56,15 @@ class Login extends BaseController
             $session->setFlashdata('msg', 'Nomor Induk tidak ada');
             return redirect()->to(base_url());
         }
+        
+        if ($session != 'TRUE') {
+            return redirect()->to(base_url('login'));
+        }
     }
     public function logout()
     {
         $session = session();
         $session->destroy();
-        return redirect()->to(base_url());
+        return redirect()->to(base_url('login'));
     }
 }

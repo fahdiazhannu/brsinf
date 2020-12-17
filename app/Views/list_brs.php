@@ -17,8 +17,7 @@ $model = new MatkulModel;
                                 <th>Nama Matakuliah</th>
                                 <th>SKS</th>
                                 <th>Kategori</th>
-                                <th>Keterangan</th>
-                                <th>Action</th>
+                                <th>Status</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -26,11 +25,10 @@ $model = new MatkulModel;
                                 <?php foreach ($matakuliah as $mk) : ?>
                                     <tr>
                                         <td><?= $mk; ?></td>
-                                        <td><?php $data = $model->where('kode_mk', $mk)->first(); echo $data['nm_mk'] ?></td>
+                                        <td><?php $data = $model->where('kode_mk', $mk)->first(); echo $data['nm_mk']; ?></td>
                                         <td><?= $data['sks']; ?></td>
                                         <td><?= $data['kt_mk']; ?></td>
-                                        <td><?= $data['keterangan']; ?></td>
-                                        <td><a href="<?= base_url('brs/delete/' .$data['id']) ?>" class="btn btn-danger mb-2"><i class="fa fa-trash"></i></a></td>
+                                        <td><?= $data['verifikasi']; ?></td>
                                     </tr>
                                 <?php endforeach; ?>
                             <?php endif; ?>

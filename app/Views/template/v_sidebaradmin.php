@@ -5,10 +5,10 @@
 
     <ul class="list-unstyled components">
         <li>
-            <a href="<?= base_url('dosen'); ?>"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+            <a href="<?= base_url('admin/list'); ?>"><i class="fas fa-clipboard-list"></i> List User</a>
         </li>
         <li>
-            <a href="<?= base_url('dosen/list'); ?>"><i class="fas fa-tasks"></i> List BRS Mahasiswa</a>
+            <a href="<?= base_url('admin/matkul'); ?>"><i class="fas fa-book"></i> List Mata Kuliah</a>
         </li>
         <li>
             <a href="<?= base_url('login/logout'); ?>"><i class="fas fa-sign-out-alt"></i> Logout</a>

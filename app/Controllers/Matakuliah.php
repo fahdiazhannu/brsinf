@@ -1,4 +1,4 @@
-<?php namespace App\Controllers\Admin;
+<?php namespace App\Controllers;
 use App\Controllers\BaseController;
 use App\Models\MatkulModel;
 
@@ -15,14 +15,13 @@ class Matakuliah extends BaseController{
         echo view("template/v_css");
         //echo "Ini adalah Controller HOME";
         $model = new MatkulModel();
-
-        //load seluruh data
-        $data['matakuliah'] = $model->orderBy('id', 'DESC')->findAll();
-
-
-        
-
-        return view('info_matkul', $data);
+        if (session()->get('logged_in')) {
+            $data['matakuliah'] = $model->orderBy('id', 'DESC')->findAll();
+            return view("info_matkul", $data);
+        } elseif (!session()->get('logged_in')) {
+            return redirect()->to(base_url());
+            # code...
+        }
     }
     public function create() {
         echo view("template/v_header");
@@ -55,7 +54,7 @@ class Matakuliah extends BaseController{
         $model = new MatkulModel();
        $data['matakuliah'] = $model->where('kode_mk', $kode_mk)->first();
     
-        return view('matkul_edit_user', $data);
+        return view('edit_matkul', $data);
     }
         public function update(){
 
@@ -78,4 +77,23 @@ class Matakuliah extends BaseController{
 
             return redirect()->to(base_url('admin/users'));
         }
+ public function detail ($id = null){
+
+        echo view("template/v_header");
+		echo view("template/v_sidebar");
+		echo view("template/v_topbar");
+        echo view("template/v_js");
+        echo view("template/v_css");
+        $model = new MatkulModel();
+
+        if (session()->get('logged_in')) {
+            $data['matakuliah'] = $model->where('id', $id)->first();
+            return view('detail_info', $data);
+        } elseif (!session()->get('logged_in')) {
+            (session()->setFlashdata('msg', 'Anda tidak mempunyai akses'));
+            return redirect()->to(base_url());
+            # code...
+        }
+
     }
+}

@@ -4,7 +4,7 @@
       <h1> Edit User</h1>
         <div class="row">
             <div class="col-sm-9">
-                <form action="<?= base_url('admin/brs/update'); ?>" method="POST">
+                <form action="<?= base_url('brs/update'); ?>" method="POST">
                 <input type="hidden" name="id" value="<?=$matakuliah['id']?>">    
                 <div class="form-group">
                         <label for="name">Nama</label>

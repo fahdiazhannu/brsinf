@@ -1,4 +1,4 @@
-<?php namespace App\Controllers\Admin;
+<?php namespace App\Controllers;
 use App\Controllers\BaseController;
 use App\Models\UsersModel;
 use App\Models\MatkulModel;
@@ -12,13 +12,19 @@ class Brs extends BaseController{
         echo view("template/v_topbar");
         echo view("template/v_js");
         echo view("template/v_css");
-        
+        if (!session()->get('logged_in')) {
+            (session()->setFlashdata('msg', 'Anda tidak mempunyai akses'));
+            return redirect()->to(base_url());
+        }
         $model = new MatkulModel();
-
+        $semester=$this->request->getVar('semester');
         $data['matakuliah'] = $model->orderBy('kode_mk', 'DESC')->findAll();
-
+        
+        
         return view('ambil_brs', $data);
     }
+    
+
     public function store()
     {
         $model = new BrsModel();
@@ -50,7 +56,7 @@ class Brs extends BaseController{
                 $save = $model->insert($data);
 
                 $session->setFlashdata('msg', 'BRS Berhasil Diisi');
-                return redirect()->to('list');
+                return redirect()->to('admin/list');
             }
             else{
                 $session->setFlashdata('msg', 'Pilih BRS terlebih dahulu!');
@@ -70,16 +76,66 @@ class Brs extends BaseController{
         echo view("template/v_js");
         echo view("template/v_css");
 
-        
+        if (!session()->get('logged_in')) { 
+            (session()->setFlashdata('msg', 'Anda tidak mempunyai akses'));
+            return redirect()->to(base_url());
+            
+        }
         $nmrmhs = session()->get('nmr_induk');
-        $data = $model->where('nmr_induk', $nmrmhs)->first();
-        if($data){
-            $kodemk = $data['kode_mk'];
-            $listkode['matakuliah'] = explode(" , ",$kodemk);
+        $vrf = session()->get('verifikasi');
+        $data = $model->where('nmr_induk', $nmrmhs, $vrf)->first();
 
-            return view('list_brs',$listkode);
+        if ($data) {
+            $kodemk = $data['kode_mk'];
+            $listkode['nama'] = $data['nama'];
+            $listkode['id'] = $data['id'];
+            $listkode['nim'] = $data['nmr_induk'];
+            $listkode['matakuliah'] = explode(" , ", $kodemk);
+
+            return view('list_brs', $listkode);
             
         }
 
     }
+    public function deletebrs($si){
+        $model = new BrsModel();
+
+        $siex = explode("_",$si);
+        $kodemk = $siex[0];
+        $idmhs = $siex[1];
+
+        $data = $model->where('id', $idmhs)->first();
+        if($data){
+            $kode_mk = $data['kode_mk'];
+            $kode_mkex = explode(" , ",$kode_mk);
+            $kode_mkexdel = array_merge(array_diff($kode_mkex, array($kodemk)));
+            $kode_mkupdate = implode(" , ",$kode_mkexdel);
+            
+            $dataupdate = [
+                'kode_mk' => $kode_mkupdate
+            ];
+            $save=$model->update($idmhs,$dataupdate);
+            
+            return redirect()->to(base_url('brs/list'));
+        }
+    }
+    public function semester ($semester=null){
+        
+    {
+        echo view("template/v_header");
+        echo view("template/v_sidebar");
+        echo view("template/v_topbar");
+        echo view("template/v_js");
+        echo view("template/v_css");
+        if (!session()->get('logged_in')) {
+            (session()->setFlashdata('msg', 'Anda tidak mempunyai akses'));
+            return redirect()->to(base_url());
+        }
+        $model = new MatkulModel();
+        $data['matakuliah'] = $model->where('semester', $semester)->findAll();
+        
+        
+        return view('ambil_brs', $data);
+    }
+}
 }

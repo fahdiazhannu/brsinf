@@ -14,6 +14,12 @@ class Calc extends BaseController
         echo view("template/v_css");
         echo view("template/v_sidebar");
         echo view("template/v_topbar");
+        $session = session();
+        if (!session()->get('logged_in')) { 
+            (session()->setFlashdata('msg', 'Anda tidak mempunyai akses'));
+            return redirect()->to(base_url());
+            # code...
+        }
         return view('calculator');
     }
     public function hitung()

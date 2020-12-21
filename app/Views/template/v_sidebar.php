@@ -5,23 +5,23 @@
 
     <ul class="list-unstyled components">
         <li>
-            <a href="<?= base_url('admin/dashboard'); ?>">Home</a>
+            <a href="<?= base_url('dashboard'); ?>"><i class="fas fa-columns"></i> Dashboard</a>
         </li>
 
         <li>
-            <a href="<?= base_url('admin/brs'); ?>">Ambil BRS</a>
+            <a href="<?= base_url('brs'); ?>"><i class="fas fa-tasks"></i> Ambil BRS</a>
         </li>
         <li>
-            <a href="<?= base_url('admin/brs/list'); ?>">List BRS</a>
+            <a href="<?= base_url('brs/list'); ?>"><i class="fas fa-list"></i> List BRS</a>
         </li>
         <li>
-            <a href="<?= base_url('calc/index'); ?>">Kalkulator IPK</a>
+            <a href="<?= base_url('calc/index'); ?>"><i class="fas fa-calculator"></i> Kalkulator IPK</a>
         </li>
         <li>
-            <a href="<?= base_url('admin/matakuliah/index'); ?>">Info Mata Kuliah</a>
+            <a href="<?= base_url('matakuliah/index'); ?>"> <i class="fas fa-info-circle"></i> Info Mata Kuliah</a>
         </li>
         <li>
-            <a href="<?= base_url(); ?>">Logout</a>
+            <a href="<?= base_url('login/logout'); ?>"><i class="fas fa-sign-out-alt"></i> Logout</a>
         </li>
     </ul>
 
